@@ -2,16 +2,16 @@
 
 @section('content')
 
-<h1>Task List for:  "{{ $username->name }}" </h1>
+<h1>Daftar Tugas Untuk:  "{{ $username->name }}" </h1>
 
 <table class="table table-striped">
     <thead>
       <tr>
-        <th>Task Title</th>
-        <th>Order Name</th>
-        <th>Priority</th>
+        <th>Judul tugas</th>
+        <th>Order</th>
+        <th>Prioritas</th>
         <th>Status</th>
-        <th>Actions</th>
+        <th>Aksi</th>
       </tr>
     </thead>
 
@@ -25,14 +25,14 @@
             @if ( $task->priority == 0 )
                 <span class="label label-info">Normal</span>
             @else
-                <span class="label label-danger">High</span>
+                <span class="label label-danger">Mendesak</span>
             @endif
         </td>
         <td>
             @if ( !$task->completed )
                 <a href="{{ route('task.completed', ['id' => $task->id]) }}" class="btn btn-warning"> Mark as completed</a>
             @else
-                <span class="label label-success">Completed</span>
+                <span class="label label-success">Selesai</span>
             @endif
         </td>
         <td>
@@ -48,7 +48,7 @@
     @endforeach
     </tbody>
 @else
-    <p><em>There are no tasks assigned yet</em></p>
+    <p><em>Tidak ada tugas</em></p>
 @endif
 
 
@@ -57,7 +57,7 @@
 
 
 <div class="btn-group">
-    <a class="btn btn-default" href="{{ redirect()->getUrlGenerator()->previous() }}">Go Back</a>
+    <a class="btn btn-default" href="{{ redirect()->getUrlGenerator()->previous() }}">Kembali</a>
 </div>
 
 

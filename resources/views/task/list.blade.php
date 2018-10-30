@@ -7,11 +7,11 @@
 <table class="table table-striped">
     <thead>
       <tr>
-        <th>Task Title</th>
-        <th>Order Name</th>
-        <th>Priority</th>
+        <th>Judul Task</th>
+        <th>Nama Order</th>
+        <th>Prioritas</th>
         <th>Status</th>
-        <th>Actions</th>
+        <th>Aksi</th>
       </tr>
     </thead>
 
@@ -51,7 +51,7 @@
     @endforeach
     </tbody>
 @else
-    <p><em>There are no tasks assigned yet</em></p>
+    <p><em>Tidak ada tugas</em></p>
 @endif
 
 
@@ -60,7 +60,7 @@
 
 
 <div class="btn-group">
-    <a class="btn btn-default" href="{{ redirect()->getUrlGenerator()->previous() }}">Go Back</a>
+    <a class="btn btn-default" href="{{ redirect()->getUrlGenerator()->previous() }}">Kembali</a>
 </div>
 
 

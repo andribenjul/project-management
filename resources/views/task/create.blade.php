@@ -16,13 +16,13 @@
     {{ csrf_field() }}
 
     <div class="col-md-8">
-        <label>Create new task <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></label>
+        <label>Buat tugas baru <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></label>
 
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Enter Task Title" name="task_title">
         </div>
 
-        <label>Add Order Files (png,gif,jpeg,jpg,txt,pdf,doc) <span class="glyphicon glyphicon-file" aria-hidden="true"></span></label>
+        <label>Tambah Order Files (png,gif,jpeg,jpg,txt,pdf,doc) <span class="glyphicon glyphicon-file" aria-hidden="true"></span></label>
 		<div class="form-group">
            	<input type="file" class="form-control" name="photos[]" multiple>
        	</div>
@@ -35,7 +35,7 @@
 
     <div class="col-md-4">
         <div class="form-group">
-            <label>Assign to Order <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span></label>
+            <label>Berikan Ke Order <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span></label>
             <select name="project_id" class="selectpicker" data-style="btn-primary" style="width:100%;">
                 @foreach( $projects as $project )
                     <option value="{{ $project->id }}">{{ $project->project_name }}</option>
@@ -44,7 +44,7 @@
         </div>
 
         <div class="form-group">
-            <label>Assign to: <span class="glyphicon glyphicon-user" aria-hidden="true"></span></label>
+            <label>Ditujukan untuk: <span class="glyphicon glyphicon-user" aria-hidden="true"></span></label>
             <select id="user" name="user" class="selectpicker" data-style="btn-info" style="width:100%;">
 				@foreach ( $users as $user)
 					<option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -54,15 +54,15 @@
         </div>
 
         <div class="form-group">
-            <label>Select Priority <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span></label>
+            <label>Pilih Prioritas <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span></label>
             <select name="priority" class="selectpicker" data-style="btn-info" style="width:100%;">
               <option value="0">Normal</option>
-              <option value="1">Urgent</option>
+              <option value="1">Mendesak</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label>Select Due Date <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></label>
+            <label>Pilih Batas Akhir <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></label>
             <div class='input-group date' id='datetimepicker1'>
                 <input type='text' class="form-control" name="duedate">
                 <span class="input-group-addon">
@@ -73,7 +73,7 @@
 
         <div class="btn-group">
             <input class="btn btn-primary" type="submit" value="Submit" onclick="return validateForm()">
-            <a class="btn btn-default" href="{{ redirect()->getUrlGenerator()->previous() }}">Go Back</a>
+            <a class="btn btn-default" href="{{ redirect()->getUrlGenerator()->previous() }}">Kembali</a>
         </div>
 
     </div>

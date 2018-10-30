@@ -31,10 +31,10 @@
 			<label>Edit Status <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
 			<select name="completed" class="form-control">
 				@if( $user->admin == 0 )
-			  		<option value="0" selected>Not Active</option>
-			  		<option value="1">Active</option>
+			  		<option value="0">Tidak Active</option>
+			  		<option value="1" selected>Active</option>
 			  	@else
-			  		<option value="0">Not Active</option>
+			  		<option value="0">Tidak Active</option>
 			  		<option value="1" selected>Active</option>
 			  	@endif
 			</select>
@@ -51,7 +51,7 @@
 
 		<div class="btn-group">
 			<input class="btn btn-primary" type="submit" value="Submit">
-			<a class="btn btn-default" href="{{ redirect()->getUrlGenerator()->previous() }}">Go Back</a>
+			<a class="btn btn-default" href="{{ redirect()->getUrlGenerator()->previous() }}">Kembali</a>
 		</div>
 
 	</div>

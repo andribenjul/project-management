@@ -3,16 +3,16 @@
 @section('content')
 
 
-<h1>Displaying Results for:  "{{ $value }}" </h1>
+<h1>Menampilkan Hasil Untuk:  "{{ $value }}" </h1>
 
 <table class="table table-striped">
     <thead>
       <tr>
         <th>Karyawan</th>
-        <th>Task Title</th>
-        <th>Priority</th>
+        <th>Judul Task</th>
+        <th>Prioritas</th>
         <th>Status</th>
-        <th>Actions</th>
+        <th>Aksi</th>
       </tr>
     </thead>
 
@@ -32,14 +32,14 @@
             @if ( $task->priority == 0 )
                 <span class="label label-info">Normal</span>
             @else
-                <span class="label label-danger">High</span>
+                <span class="label label-danger">Mendesak</span>
             @endif
         </td>
         <td>
             @if ( !$task->completed )
                 <a href="{{ route('task.completed', ['id' => $task->id]) }}" class="btn btn-warning"> Mark as completed</a>
             @else
-                <span class="label label-success">Completed</span>
+                <span class="label label-success">Selesai</span>
             @endif
         </td>
         <td>
@@ -57,7 +57,7 @@
     @endforeach
     </tbody>
 @else
-    <p><em>No match found</em></p>
+    <p><em>Tidak Ditemukan</em></p>
 @endif
 
 
@@ -66,7 +66,7 @@
 
 
     <div class="btn-group">
-        <a class="btn btn-default" href="{{ redirect()->getUrlGenerator()->previous() }}">Go Back</a>
+        <a class="btn btn-default" href="{{ redirect()->getUrlGenerator()->previous() }}">Kembali</a>
     </div>
 
 

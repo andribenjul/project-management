@@ -27,17 +27,17 @@
     <div class="col-md-8">
 
     	<div class="form-group">
-    		<label>Edit Task Title</label>
+    		<label>Edit Judul Tugas</label>
 			<input type="text" class="form-control"  name="task_title" value="{{ $task->task_title }}">
 		</div>
 
 		<div class="form-group">
-        <label>Add Order Files (png,gif,jpeg,jpg,txt,pdf,doc) <span class="glyphicon glyphicon-file" aria-hidden="true"></span></label>
+        <label>Tambah Order Files (png,gif,jpeg,jpg,txt,pdf,doc) <span class="glyphicon glyphicon-file" aria-hidden="true"></span></label>
            	<input type="file" class="form-control" name="photos[]" multiple>
        	</div>
 
     	<div class="form-group">
-    		<label>Edit task</label>
+    		<label>Edit Tugas</label>
 			<textarea class="form-control my-editor" rows="5" id="task" name="task">{{ $task->task }}</textarea>
 		</div>
 
@@ -60,7 +60,7 @@
 
 
         <div class="form-group">
-			 <label>Assigned to User <span class="glyphicon glyphicon-user" aria-hidden="true"></span></label>
+			 <label>Ditujukan Untuk <span class="glyphicon glyphicon-user" aria-hidden="true"></span></label>
 
               <select name="user_id" id="user_id" class="form-control">
                     @foreach( $users as $user)
@@ -75,7 +75,7 @@
         </div>
 
         <div class="form-group">
-			 <label>Assigned to Order <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span></label>
+			 <label>Berikan Ke Order <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span></label>
 
               <select name="project_id" id="project_id" class="form-control">
                     @foreach( $projects as $project)
@@ -91,14 +91,14 @@
 
 
 		<div class="form-group">
-			<label>Edit Priority <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span></label>
+			<label>Edit Prioritas <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span></label>
 			<select name="priority" class="form-control">
 				@if( $task->priority == 0 )
 			  		<option value="0" selected>Normal</option>
-			  		<option value="1">High</option>
+			  		<option value="1">Mendesak</option>
 			    @else
 			  		<option value="0">Normal</option>
-			  		<option value="1" selected>High</option>
+			  		<option value="1" selected>MMendesak</option>
 			  	@endif
 			</select>
 		</div>
@@ -107,18 +107,18 @@
 			<label>Edit Status <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
 			<select name="completed" class="form-control">
 				@if( $task->completed == 0 )
-			  		<option value="0" selected>Not Completed</option>
-			  		<option value="1">Completed</option>
+			  		<option value="0" selected>Belum Selesai</option>
+			  		<option value="1">Selesai</option>
 			  	@else
-			  		<option value="0">Not Completed</option>
-			  		<option value="1" selected>Completed</option>
+			  		<option value="0">Belum Selesai</option>
+			  		<option value="1" selected>Selesai</option>
 			  	@endif
 			</select>
 		</div>
 
 
         <div class="form-group">
-            <label>Edit Due Date <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></label>
+            <label>Edit Batas Akhir <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></label>
 
                 <div class='input-group date' id='datetimepicker1'>
 					<input type='text' class="form-control" name="duedate" value="{{ $task->duedate }}">
@@ -132,7 +132,7 @@
 
 		<div class="btn-group">
 			<input class="btn btn-primary" type="submit" value="Submit">
-			<a class="btn btn-default" href="{{ redirect()->getUrlGenerator()->previous() }}">Go Back</a>
+			<a class="btn btn-default" href="{{ redirect()->getUrlGenerator()->previous() }}">Kembali</a>
 		</div>
 
 	</div>
