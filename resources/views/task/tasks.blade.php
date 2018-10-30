@@ -17,7 +17,7 @@
 
         <div class="input-group">
 
-            <input autocomplete="off" type="text" placeholder="Cari Tugas" class="form-control" name="task_search" id="task_search">
+            <input autocomplete="off" type="text" placeholder="Cari Tugas/Karyawan" class="form-control" name="task_search" id="task_search">
             <span class="input-group-btn">
             <button type="submit"  id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                         </button>

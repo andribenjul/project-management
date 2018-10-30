@@ -97,10 +97,16 @@ class UserController extends Controller
         $update_user->name  = $request->name;
         $update_user->email = $request->email;
         if ($request->has('password') ) $update_user->password = bcrypt($request->password) ;
-        if ($request->has('role_id') ) $update_user->password = bcrypt($request->password) ;
+        $roles = $request['role_id'];
 
-        $update_user->save() ;
+        $update_user->save();
 
+        if (isset($roles)) {
+            $update_user->roles()->sync($roles);
+        }
+        else {
+            $update_user->roles()->detach();
+        }
 
 	    $reset_demo = User::find(5) ;
 	    $reset_demo->admin = 1 ;
