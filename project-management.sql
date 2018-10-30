@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2018 at 07:11 AM
+-- Generation Time: Oct 30, 2018 at 09:35 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -128,7 +128,15 @@ CREATE TABLE `model_has_roles` (
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\User', 5),
 (2, 'App\\User', 16),
-(3, 'App\\User', 18);
+(3, '', 0),
+(3, 'App\\User', 18),
+(3, 'App\\User', 22),
+(3, 'App\\User', 23),
+(3, 'App\\User', 24),
+(3, 'App\\User', 25),
+(3, 'App\\User', 26),
+(3, 'App\\User', 27),
+(3, 'App\\User', 28);
 
 -- --------------------------------------------------------
 
@@ -238,7 +246,8 @@ CREATE TABLE `roles` (
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'web', '2018-10-26 09:46:29', '2018-10-26 09:46:29'),
 (2, 'kabag', 'web', '2018-10-26 09:46:41', '2018-10-26 09:46:41'),
-(3, 'user', 'web', '2018-10-26 09:46:46', '2018-10-26 09:46:46');
+(3, 'user', 'web', '2018-10-26 09:46:46', '2018-10-26 09:46:46'),
+(4, 'direktur', 'web', '2018-10-30 05:59:41', '2018-10-30 05:59:41');
 
 -- --------------------------------------------------------
 
@@ -258,7 +267,40 @@ CREATE TABLE `role_has_permissions` (
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (1, 1),
 (1, 2),
-(1, 3);
+(1, 3),
+(1, 4),
+(2, 1),
+(2, 2),
+(3, 1),
+(3, 2),
+(4, 1),
+(5, 1),
+(5, 2),
+(5, 3),
+(6, 1),
+(6, 2),
+(7, 1),
+(7, 2),
+(8, 1),
+(9, 1),
+(9, 2),
+(9, 3),
+(10, 1),
+(10, 2),
+(11, 1),
+(11, 2),
+(12, 1),
+(13, 1),
+(13, 2),
+(13, 3),
+(14, 1),
+(14, 2),
+(15, 1),
+(15, 2),
+(16, 1),
+(17, 1),
+(17, 2),
+(17, 3);
 
 -- --------------------------------------------------------
 
@@ -285,13 +327,8 @@ CREATE TABLE `tasks` (
 
 INSERT INTO `tasks` (`id`, `user_id`, `project_id`, `task_title`, `task`, `priority`, `completed`, `created_at`, `updated_at`, `duedate`) VALUES
 (60, 18, 9, 'Task 13', '<p>t</p>', 0, 1, '2018-10-03 21:38:28', '2018-10-25 09:19:14', '2018-10-04 03:38:21'),
-(61, 1, 9, 'Task 14', 'r', 0, 1, '2018-10-03 21:38:39', '2018-10-17 07:29:54', '2018-10-04 03:38:33'),
-(62, 1, 9, 'Task 15', 't', 0, 1, '2018-10-03 21:38:50', '2018-10-17 07:29:55', '2018-10-04 03:38:43'),
-(63, 1, 9, 'Task 16', 'ser', 0, 1, '2018-10-03 21:39:32', '2018-10-20 09:04:07', '2018-10-04 03:39:21'),
-(64, 1, 9, 'Taks 17', 't', 0, 1, '2018-10-03 21:39:44', '2018-10-20 09:04:06', '2018-10-04 03:39:36'),
-(65, 1, 9, 'task 18', 'task', 0, 1, '2018-10-03 21:39:56', '2018-10-20 09:04:05', '2018-10-04 03:39:48'),
-(66, 1, 9, 'task 19', 'er', 0, 1, '2018-10-03 21:40:07', '2018-10-20 09:04:04', '2018-10-04 03:40:00'),
-(67, 1, 9, 'Task 90', 'wer', 0, 1, '2018-10-03 21:40:31', '2018-10-20 09:04:03', '2018-10-04 03:40:22');
+(69, 24, 9, 'Belanja Bahan', '<p>Belanja bahan di cipulir</p>', 0, 0, '2018-10-30 08:33:50', '2018-10-30 08:33:50', '2018-11-03 02:33:25'),
+(70, 25, 9, 'Jahit Bahan', '<p>Jahit bahan</p>', 0, 0, '2018-10-30 08:34:50', '2018-10-30 08:34:50', '2018-11-04 02:34:37');
 
 -- --------------------------------------------------------
 
@@ -330,10 +367,16 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `admin`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 0, 'Not Assigned', 'not@assigned.com', '', NULL, NULL, NULL),
-(5, 1, 'Admin', 'admin@app.com', '$2y$10$w5XMKVAOUl95uQdxrF3PuOCHZrnqZwT38jFw4RtZBp8lWblUsoz6W', '381XBIT4hDTuRe9lDr8QtbDPu0KcO120GVDivLBEd6aDRrs7NfDLb2fHiFSc', '2017-08-29 12:08:01', '2018-10-28 19:06:52'),
+(5, 1, 'Admin', 'admin@app.com', '$2y$10$e53olkEzHuRPd989eK5/ROn3XXEo7IO9akGffpKsESO9JnhLijdY2', 'wUI4TqUKU8m96xI5zA6bOhU6axbHEZgRtSubPWae9Tg2AhuWRtIugqDIuLja', '2017-08-29 12:08:01', '2018-10-30 09:18:27'),
 (16, 1, 'Kepala Bagian', 'kabag@app.com', '$2y$10$BsSpyJ2rzMS8T0QxASn6VeO1B22W/EWZGcIuDdslfUSA9iiiEVcOW', '1GHvqP6RLFOFfv5QnFqjDCnrjKf3hMPag6PGkltUMnFyBPJIJhY6p3of6KRK', '2018-10-02 14:17:42', '2018-10-25 09:36:26'),
-(18, 1, 'Karyawan 1', 'karyawan1@app.com', '$2y$10$pTOk3gFaw2EyaFTt2V3va.IVl8lIuvnq4U208K3wpMss672ermSN6', 'RYXdAV61Wxn6050E01qrql1x4hxlLwfXjQtmLYXFf8cSPNMVJIPaov8z2UDQ', '2018-10-25 08:59:49', '2018-10-25 08:59:49'),
-(19, 1, 'Karyawan 2', 'karyawan2@app.com', '$2y$10$j6EEZkvSNoVEsPEQ0bi5yOX1Ra0uApi.JQCfJh5VpsGZ77oPkRz0G', NULL, '2018-10-28 19:02:05', '2018-10-28 19:02:05');
+(18, 1, 'Karyawan 1', 'karyawan1@app.com', '$2y$10$pTOk3gFaw2EyaFTt2V3va.IVl8lIuvnq4U208K3wpMss672ermSN6', 'GXSU7X3r47acMVBk8cY8yrTc7JU4FxXJzzvdgiX8DJsGR8bWVa7QMe0xi5gf', '2018-10-25 08:59:49', '2018-10-25 08:59:49'),
+(22, 1, 'Karyawan 5', 'karyawan5@app.com', '$2y$10$rmaTVeRIuQWKDGWFIwuH7e3HoCYmyvpXuQnqYIHHoDz5UWRjA7jO2', NULL, '2018-10-30 07:05:34', '2018-10-30 07:05:34'),
+(23, 1, 'Karyawan 6', 'karyawan6@app.com', '$2y$10$D645Dskb3g/s21FVsrXVVOFgtqGRTFIhZF7q0sZ9Ip4OaZUfdG1HW', NULL, '2018-10-30 08:28:16', '2018-10-30 08:28:16'),
+(24, 1, 'Karyawan 2', 'karyawan2@app.com', '$2y$10$37uU3WO.QbT3ioeg.V9dqe6wMDsjX0MNpAx32q9ox.Z4C/jxP.ilC', NULL, '2018-10-30 08:31:57', '2018-10-30 08:31:57'),
+(25, 1, 'Karyawan 3', 'karyawan3@app.com', '$2y$10$29j9duORBmxXNGevBFxUFOufGA/1DpwdB.mF5XDtNzCh/4JdhXw6m', NULL, '2018-10-30 08:32:20', '2018-10-30 08:32:20'),
+(26, 1, 'Karyawan 4', 'karyawan4@app.com', '$2y$10$53kD9C.gqG9ICj8vQ3uKCu20YmeWNeIpU2tKxZT5UNNaiQkDWQy4S', 'rKewliaOvD3tCIaw3CkHIObfDa9FVbHEHjiUvrGUb1K720eNaoYfDHe4EHeZ', '2018-10-30 08:32:47', '2018-10-30 08:32:47'),
+(27, 1, 'Karyawan 7', 'karyawan7@app.com', '$2y$10$BWx41phplLSLv4Ci/S4jUuW2/c9IiMm7ZDREunOiJ/8HyRU0t3q86', NULL, '2018-10-30 09:04:44', '2018-10-30 09:04:44'),
+(28, 1, 'Kepala Bagian 2', 'kabag2@app.com', '$2y$10$j8m7zcI5AGYiI5v23SF8muIfVG3g9fvZS9XdrljFKLMSSK7yLVIq.', NULL, '2018-10-30 09:05:20', '2018-10-30 09:05:20');
 
 --
 -- Indexes for dumped tables
@@ -453,13 +496,13 @@ ALTER TABLE `projects`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `task_files`
@@ -471,7 +514,7 @@ ALTER TABLE `task_files`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Constraints for dumped tables
