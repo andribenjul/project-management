@@ -313,7 +313,8 @@ class TaskController extends Controller
     {
         $users = User::all();
         $value = Input::get('task_search');
-        $tasks = Task::where('task_title', 'LIKE', '%' . $value . '%')->orWhere('user_id', 'LIKE', '%' . $value . '%')->limit(25)->get();
+        $tasks = Task::join('users', 'user_id', '=', 'users.id')->where('task_title', 'LIKE', '%' . $value . '%')
+        ->orWhere('name', 'LIKE', '%' . $value . '%')->limit(25)->get();
         return view('task.search')->with('value', $value)
                                   ->with('tasks', $tasks)
                                   ->with('users', $users) ;
