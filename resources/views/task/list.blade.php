@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>Order Task List for:  "{{ $p_name->project_name }}" </h1>
+<h1>Order Task List:  "{{ $p_name->project_name }}" </h1>
 
 <table class="table table-striped">
     <thead>
