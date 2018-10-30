@@ -46,7 +46,8 @@ class UserController extends Controller
             'name'     => 'required',
             'email'    => 'required|email|unique:users',
             'admin'    => 'required',
-            'password' => 'required'
+            'password' => 'required',
+            'role_id' => 'int'
         ] ;
 
         $messages = [
@@ -65,12 +66,10 @@ class UserController extends Controller
             'password' => bcrypt($request->password) ,
         ]);
 
-        $roles = $request['roles'];
-        if (isset($roles)) {
-            foreach ($roles as $role) {
-            $role_r = Role::where('id', '=', $role)->firstOrFail();
+        $roleId = $request['role_id'];
+        if (empty($roleId)===false) {
+            $role_r = Role::where('id', '=', $roleId)->firstOrFail();
             $user->assignRole($role_r); //Assigning role to user
-            }
         }
 
         Session::flash('success', 'User Dibuat') ;
@@ -98,6 +97,8 @@ class UserController extends Controller
         $update_user->name  = $request->name;
         $update_user->email = $request->email;
         if ($request->has('password') ) $update_user->password = bcrypt($request->password) ;
+        if ($request->has('role_id') ) $update_user->password = bcrypt($request->password) ;
+
         $update_user->save() ;
 
 
@@ -125,7 +126,7 @@ class UserController extends Controller
 	        Session::flash('error', 'Error, Admin tidak bisa dihapus') ;
 	        return redirect()->back();
         }
-        $delete_user->delete() ;
+        $delete_user->dphpcselete() ;
         Session::flash('success', 'User dihapus') ;
         return redirect()->back();
     }

@@ -59,7 +59,7 @@
                   <div class="col-md-5">
                       <div class="form-group">
                           <label>Jabatan <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></label>
-                          <select name="" class="form-control">
+                          <select name="role_id" class="form-control">
                             @foreach ($roles as $role)
                               <option value="{{ $role->id }}">{{ $role->name }}</option>
                             @endforeach
