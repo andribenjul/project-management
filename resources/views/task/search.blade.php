@@ -8,6 +8,7 @@
 <table class="table table-striped">
     <thead>
       <tr>
+        <th>Karyawan</th>
         <th>Task Title</th>
         <th>Priority</th>
         <th>Status</th>
@@ -19,6 +20,13 @@
     <tbody>
     @foreach ( $tasks as $task)
       <tr>
+        <td>
+          @foreach( $users as $user)
+              @if ( $user->id == $task->user_id )
+                  <a href="{{ route('user.list', [ 'id' => $user->id ]) }}">{{ $user->name }}</a>
+              @endif
+          @endforeach
+        </td>
         <td>{{ $task->task_title }} </td>
         <td>
             @if ( $task->priority == 0 )

@@ -138,7 +138,6 @@ $(document).ready(function() {
             },
 
             updater: function(item) {
-              // http://laratubedemo.test/admin/videos/search?video_search=Code+Geass+Op1
                 window.location.href = '{{ route('task.search') }}?task_search=' + item.task_title.split(' ').join('+') ;
             }
 
