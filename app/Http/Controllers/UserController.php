@@ -126,7 +126,7 @@ class UserController extends Controller
 	        Session::flash('error', 'Error, Admin tidak bisa dihapus') ;
 	        return redirect()->back();
         }
-        $delete_user->dphpcselete() ;
+        $delete_user->delete() ;
         Session::flash('success', 'User dihapus') ;
         return redirect()->back();
     }
