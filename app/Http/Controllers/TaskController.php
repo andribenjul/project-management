@@ -3,8 +3,6 @@ namespace App\Http\Controllers;
 
 use Session;
 use Illuminate\Http\Request;
-
-// import our models
 use App\Project;
 use App\Task;
 use App\TaskFiles;
@@ -14,9 +12,7 @@ use Illuminate\Support\Facades\Input;
 
 class TaskController extends Controller
 {
-  /*===============================================
-      ROLES
-  ===============================================*/
+
     function __construct()
     {
          $this->middleware('permission:view task');
@@ -25,86 +21,58 @@ class TaskController extends Controller
          $this->middleware('permission:delete task', ['only' => ['destroy']]);
     }
 
-/*===============================================
-    INDEX
-===============================================*/
     public function index()
     {
-
-        $users =  User::all() ;
-        $tasks  = Task::orderBy('created_at', 'asc')->paginate(20) ;  // Paginate Tasks
+        $users =  User::all();
+        $tasks  = Task::orderBy('created_at', 'asc')->paginate(20);
 
         return view('task.tasks')->with('tasks', $tasks)
-                                 ->with('users', $users ) ;
-
+                                 ->with('users', $users );
     }
 
-/*===============================================
-    LIST Tasks
-===============================================*/
-    public function tasklist( $projectid ) {
-
-        // dd($projectid);
-        $users =  User::all() ;
-        $p_name = Project::find($projectid) ;
-        // ->get()  will return a collection
+    public function tasklist( $projectid )
+    {
+        $users =  User::all();
+        $p_name = Project::find($projectid);
         $task_list = Task::where('project_id','=' , $projectid)->get();
+
         return view('task.list')->with('users', $users)
                                 ->with('p_name', $p_name)
-                                ->with('task_list', $task_list) ;
+                                ->with('task_list', $task_list);
     }
 
-/*===============================================
-    VIEW Task
-===============================================*/
-    public function view($id)  {
-        $images_set = [] ;
-        $files_set = [] ;
-        $images_array = ['png','gif','jpeg','jpg'] ;
-        // get task file names with task_id number
-        $taskfiles = TaskFiles::where('task_id', $id )->get() ;
+    public function view($id)
+    {
+        $images_set = [];
+        $files_set = [];
+        $images_array = ['png','gif','jpeg','jpg'];
+        $taskfiles = TaskFiles::where('task_id', $id )->get();
 
         if ( count($taskfiles) > 0 ) {
             foreach ( $taskfiles as $taskfile ) {
-
-                // explode the filename into 2 parts: the filename and the extension
-                $taskfile = explode(".", $taskfile->filename ) ;
-                // store images only in one array
-                // $taskfile[0] = filename
-                // $taskfile[1] = jpg
-                // check if extension is a image filetype
+                $taskfile = explode(".", $taskfile->filename );
                 if ( in_array($taskfile[1], $images_array ) )
-                    $images_set[] = $taskfile[0] . '.' . $taskfile[1] ;
-                    // if not an image, store in files array
+                    $images_set[] = $taskfile[0] . '.' . $taskfile[1];
                 else
                     $files_set[] = $taskfile[0] . '.' . $taskfile[1];
             }
         }
 
+        $task_view = Task::find($id);
 
-
-        $task_view = Task::find($id) ;
-
-        // Get task created and due dates
         $from = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $task_view->created_at);
-        $to   = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $task_view->duedate ); // add here the due date from create task
+        $to   = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $task_view->duedate );
 
         $current_date = \Carbon\Carbon::now();
 
-        // Format dates for Humans
         $formatted_from = $from->toRfc850String();
         $formatted_to   = $to->toRfc850String();
 
-        // Get Difference between current_date and duedate = days left to complete task
-        // $diff_in_days = $from->diffInDays($to);
         $diff_in_days = $current_date->diffInDays($to);
 
-        // Check for overdue tasks
         $is_overdue = ($current_date->gt($to) ) ? true : false ;
 
-        // $task_view->project->project_name   will output the project name for this specific task
-        // to populate the right sidebar with related tasks
-        $projects = Project::all() ;
+        $projects = Project::all();
         return view('task.view')
             ->with('task_view', $task_view)
             ->with('projects', $projects)
@@ -114,18 +82,15 @@ class TaskController extends Controller
             ->with('formatted_from', $formatted_from )
             ->with('formatted_to', $formatted_to )
             ->with('images_set', $images_set)
-            ->with('files_set', $files_set) ;
+            ->with('files_set', $files_set);
     }
 
-/*===============================================
-    SORT TASKS
-===============================================*/
-    public function sort( $key ) {
-        $users = User::all() ;
-        // dd ($key) ;
+    public function sort( $key )
+    {
+        $users = User::all();
         switch($key) {
             case 'task':
-                $tasks = Task::orderBy('task')->paginate(10); // replace get() with paginate()
+                $tasks = Task::orderBy('task')->paginate(10);
             break;
             case 'priority':
                 $tasks = Task::orderBy('priority')->paginate(10);
@@ -136,92 +101,60 @@ class TaskController extends Controller
         }
 
         return view('task.tasks')->with('users', $users)
-                                ->with('tasks', $tasks) ;
+                                ->with('tasks', $tasks);
     }
 
-/*===============================================
-    CREATE TASK
-===============================================*/
     public function create()
     {
-        $projects = Project::all()  ;
-        $users = User::all() ;
+        $projects = Project::all();
+        $users = User::all();
         return view('task.create')->with('projects', $projects)
-                                  ->with('users', $users) ;
+                                  ->with('users', $users);
     }
 
-/*===============================================
-    STORE NEW TASK
-===============================================*/
     public function store(Request $request)
     {
-        // dd($request->all() ) ;
-        // $tasks_count = Task::count() ;
-        //
-        // if ( $tasks_count < 20  ) {
-            // dd( $request->all()  ) ;
-            // dd($request->file('photos'));
+        $this->validate( $request, [
+          'task_title' => 'required',
+          'task'       => 'required',
+          'project_id' => 'required|numeric',
+          'photos.*'   => 'sometimes|required|mimes:png,gif,jpeg,jpg,txt,pdf,doc',  // photos is an array: photos.*
+          'duedate'    => 'required'
+        ]);
 
-            $this->validate( $request, [
-                'task_title' => 'required',
-                'task'       => 'required',
-                'project_id' => 'required|numeric',
-                'photos.*'   => 'sometimes|required|mimes:png,gif,jpeg,jpg,txt,pdf,doc',  // photos is an array: photos.*
-                'duedate'    => 'required'
-            ]) ;
+        $task = Task::create([
+          'project_id' => $request->project_id,
+          'user_id'    => $request->user,
+          'task_title' => $request->task_title,
+          'task'       => $request->task,
+          'priority'   => $request->priority,
+          'duedate'    => $request->duedate
+        ]);
 
-            // dd($request->all() ) ;
-            // First save Task Info
-            $task = Task::create([
-                'project_id' => $request->project_id,
-                'user_id'    => $request->user,
-                'task_title' => $request->task_title,
-                'task'       => $request->task,
-                'priority'   => $request->priority,
-                'duedate'    => $request->duedate
-            ]);
+          if( $request->hasFile('photos') ) {
+            foreach ($request->photos as $file) {
+                $filename = strtr( pathinfo( time() . '_' . $file->getClientOriginalName(), PATHINFO_FILENAME) , [' ' => '', '.' => ''] ) . '.' . pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+                $file->move('images',$filename);
 
-            // Then save files using the newly created ID above
-            if( $request->hasFile('photos') ) {
-                foreach ($request->photos as $file) {
-
-                    $filename = strtr( pathinfo( time() . '_' . $file->getClientOriginalName(), PATHINFO_FILENAME) , [' ' => '', '.' => ''] ) . '.' . pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
-                    $file->move('images',$filename);
-
-                    // save to DB
-                    TaskFiles::create([
-                        'task_id'  => $task->id, // newly created ID
-                        'filename' => $filename  // For Regular Public Images
-
-                    ]);
-                }
+                TaskFiles::create([
+                    'task_id'  => $task->id,
+                    'filename' => $filename
+                ]);
+              }
             }
 
-            Session::flash('success', 'Task Created') ;
-            return redirect()->route('task.show') ;
+            Session::flash('success', 'Task Created');
+            return redirect()->route('task.show');
         }
 
-        // else {
-        //     Session::flash('info', 'Please delete some tasks, Demo max tasks: 20') ;
-        //     return redirect()->route('task.show') ;
-        // }
-
-    // }
-
-/*===============================================
-    MARK TASK AS COMPLETED
-===============================================*/
     public function completed($id)
     {
-        $task_complete = Task::find($id) ;
+        $task_complete = Task::find($id);
         $task_complete->completed = 1;
-        $task_complete->save() ;
+        $task_complete->save();
         return redirect()->back();
     }
 
-/*===============================================
-    EDIT TASK
-===============================================*/
     public function edit($id)
     {
         // $task_list = Task::where('project_id','=' , $projectid)->get();
